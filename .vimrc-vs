@@ -1,0 +1,3 @@
+imap jj <esc>
+nnoremap <C-w> :q<CR>
+nnoremap <C-n> :tabe<CR>

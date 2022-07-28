@@ -8,6 +8,7 @@ alias cp="cp -riv"
 alias mkdir="mkdir -vp"
 alias ls="ls --color=auto"
 alias grep='grep --color=auto'
+alias python=python3
 HISTSIZE=1000
 HISTFILESIZE=2000
 HISTCONTROL=erasedups:ignorespace

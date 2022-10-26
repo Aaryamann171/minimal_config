@@ -1,0 +1,9 @@
+set rnu
+set ic
+set splitbelow
+set splitright
+imap jj <esc>
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+nnoremap <C-w> :q<CR>
+nnoremap <C-n> :tabe<CR>

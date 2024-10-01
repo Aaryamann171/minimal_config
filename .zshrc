@@ -1,3 +1,9 @@
+unsetopt BEEP
+
+# set vim as editor
+export VISUAL=vim;
+export EDITOR=vim;
+
 # prompt
 fpath+=($HOME/.zsh/pure)
 autoload -U promptinit; promptinit
@@ -19,12 +25,12 @@ setopt HIST_SAVE_NO_DUPS
 # completion system
 autoload -Uz compinit
 compinit
+zstyle :autocomplete:tab: widget-style autosuggest-accept
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -38,23 +44,27 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # qol alias
 alias v="vim"
-alias ls="ls --color"
 alias python="python3"
 alias mv="mv -iv"
 alias cp="cp -riv"
 alias mkdir="mkdir -vp"
+alias grep="grep -i"
+
+# tmux aliases
 alias t='tmux attach || tmux new-session'
 alias ta='tmux attach -t'
 alias tn='tmux new-session'
 alias tl='tmux list-sessions'
 
+alias lc='cd ~/code/compe/leetcode/misc && code .'
+alias lt='cd ~/code/compe/leetcode/misc && code .'
+alias dsa='cd ~/code/fun/python && code .'
+
 # git aliases
 alias g="git"
 alias ga="git add"
 alias gc="git commit -v"
-alias gc!="git commit -v --amend"
 alias gcl="git clone"
-alias gc="git diff"
 alias gf="git fetch"
 alias gl="git pull"
 alias gp="git push"

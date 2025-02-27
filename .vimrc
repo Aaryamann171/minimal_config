@@ -1,14 +1,11 @@
+" General Settings
 set number
 set belloff=all
-set noruler
 set ignorecase
-set autoindent smartindent
+set smartindent autoindent
 set nobackup noundofile noswapfile
-set clipboard^=unnamed,unnamedplus
+set clipboard+=unnamed,unnamedplus
 set tabstop=4 shiftwidth=4 expandtab
-setf dosini
-set t_Co=256
-set t_ut=
 set termguicolors
 set laststatus=0
 set autoread
@@ -16,66 +13,63 @@ set background=dark
 set mouse=a
 set wildmenu
 set cursorline
+set splitbelow splitright " Proper splits behavior
 
-" plugins
+" Plugin Manager (vim-plug)
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomasiser/vim-code-dark'
+Plug 'nordtheme/vim'
 call plug#end()
 
-" colorscheme
+" Syntax & Colors
+syntax on
+colorscheme codedark
 let g:codedark_modern=1
 let g:codedark_transparent=1
-colorscheme codedark
 
-" map jj to esc 
-imap jj <esc>
-
-" disable `
-map ` <Nop>
-
-" maps leader to SPACE
+" Leader Key
+let mapleader=" "
 map <Space> <Leader>
 
-" change cursor to block in normal mode
+" Key Mappings
+imap jj <Esc> " jj to escape
+map ` <Nop> " Disable backticks
+
+" Copy all lines to clipboard
+nnoremap <Leader>ca :%y+<CR>
+
+" Cursor Settings (Block cursor in Normal Mode)
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-" copy all lines to the clipboard
-map <silent> <Leader>ca :%y<CR>
+" Window Management
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>l <C-w>l
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>j <C-w>j
 
-" splits properly
-set splitbelow
-set splitright
-
-" friendly split resize
-noremap <silent> <C-Left> :vertical resize +3<CR>
-noremap <silent> <C-Right> :vertical resize -3<CR>
-noremap <silent> <C-Up> :resize +3<CR>
-noremap <silent> <C-Down> :resize -3<CR>
-
-" remap splits navigation to just leader + hjkl
-noremap <leader>h <C-w>h
-noremap <leader>l <C-w>l
-noremap <leader>k <C-w>k
-noremap <leader>j <C-w>j
-
-" changing split orientation
 nnoremap <C-h> <C-w>H
 nnoremap <C-j> <C-w>J
 nnoremap <C-k> <C-w>K
 nnoremap <C-l> <C-w>L
 
-" reopen last tab
-nmap <c-s-t> :vs<bar>:b#<CR>
+" Friendly Split Resizing
+nnoremap <silent> <C-Left>  :vertical resize +3<CR>
+nnoremap <silent> <C-Right> :vertical resize -3<CR>
+nnoremap <silent> <C-Up>    :resize +3<CR>
+nnoremap <silent> <C-Down>  :resize -3<CR>
 
-" Move visual selection
+" Reopen Last Tab
+nnoremap <C-S-T> :vs<bar>:b#<CR>
+
+" Move Visual Selection
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" enable spellcheck
-map <F5> :setlocal spell! spelllang=en_us<CR>
+" Enable Spellcheck (Toggle)
+nnoremap <F5> :setlocal spell! spelllang=en_us<CR>

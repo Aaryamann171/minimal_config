@@ -1,74 +1,91 @@
+# Disable system beep
 unsetopt BEEP
 
-# set vim as editor
-export VISUAL=vim;
-export EDITOR=vim;
+# Set vim as editor
+export VISUAL=vim
+export EDITOR=vim
 
-# prompt
+# Prompt
 fpath+=($HOME/.zsh/pure)
 autoload -U promptinit; promptinit
 prompt pure
 
-# history management
+# History management
 HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
-setopt histignorealldups
-setopt sharehistory
-setopt appendhistory
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_all_dups
+setopt share_history
+setopt append_history
 setopt hist_reduce_blanks
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_IGNORE_SPACE
-setopt HIST_FIND_NO_DUPS
-setopt HIST_SAVE_NO_DUPS
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_save_no_dups
 
-# completion system
+# Completion system
 autoload -Uz compinit
-compinit
+compinit -C
 zstyle :autocomplete:tab: widget-style autosuggest-accept
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# qol alias
+# Quality of Life Aliases
 alias v="vim"
 alias python="python3"
 alias mv="mv -iv"
 alias cp="cp -riv"
 alias mkdir="mkdir -vp"
-alias grep="grep -i"
+alias ls="eza --icons --group-directories-first"
+alias t="tmux attach || tmux new-session"
+alias ta="tmux attach -t"
+alias tn="tmux new-session"
+alias tl="tmux list-sessions"
+alias cat="bat"
+alias wifi='echo "Mojo Dojo Casa House Network" | pbcopy && echo "copied to clipboard"'
+alias downloads="cd ~/Downloads"
 
-# tmux aliases
-alias t='tmux attach || tmux new-session'
-alias ta='tmux attach -t'
-alias tn='tmux new-session'
-alias tl='tmux list-sessions'
+# Custom Navigation
+alias lc="cd ~/code/compe/leetcode/misc"
+alias lt="cd ~/code/compe/leetcode/misc"
+alias dsa="cd ~/code/fun/python"
 
-alias lc='cd ~/code/compe/leetcode/misc && code .'
-alias lt='cd ~/code/compe/leetcode/misc && code .'
-alias dsa='cd ~/code/fun/python && code .'
-
-# git aliases
+# Git Aliases
 alias g="git"
 alias ga="git add"
 alias gc="git commit -v"
+alias gca="git commit -v --amend"
 alias gcl="git clone"
+alias gd="git diff"
 alias gf="git fetch"
 alias gl="git pull"
 alias gp="git push"
 
-# ctrl + arrow to skip words
+# Misc Aliases
+alias seer="fortune | cowsay | lolcat"
+alias grep="grep -i"
+alias llm="ollama run llama3.2"
+
+# Ctrl + Arrow to skip words
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
+
+# BMI Calculator
+alias bmi="~/code/scripts/bmi.sh"
+
+# Load Docker & GHCup if available
+[ -f "$HOME/.docker/init-zsh.sh" ] && source "$HOME/.docker/init-zsh.sh"
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
+
+# Export Paths
+export BAT_THEME="Visual Studio Dark+"
+export GOPATH="$HOME/code/fun/go"
+
+# Speed up loading by precompiling .zshrc
+if [[ ! -f ~/.zshrc.zwc || ~/.zshrc -nt ~/.zshrc.zwc ]]; then
+  zcompile ~/.zshrc
+fi

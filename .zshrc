@@ -34,7 +34,7 @@ zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# Quality of Life Aliases
+# QOL Aliases
 alias v="vim"
 alias python="python3"
 alias mv="mv -iv"
@@ -46,7 +46,6 @@ alias ta="tmux attach -t"
 alias tn="tmux new-session"
 alias tl="tmux list-sessions"
 alias cat="bat"
-alias wifi='echo "Mojo Dojo Casa House Network" | pbcopy && echo "copied to clipboard"'
 alias downloads="cd ~/Downloads"
 
 # Custom Navigation
@@ -73,9 +72,6 @@ alias llm="ollama run llama3.2"
 # Ctrl + Arrow to skip words
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
-
-# BMI Calculator
-alias bmi="~/code/scripts/bmi.sh"
 
 # Load Docker & GHCup if available
 [ -f "$HOME/.docker/init-zsh.sh" ] && source "$HOME/.docker/init-zsh.sh"

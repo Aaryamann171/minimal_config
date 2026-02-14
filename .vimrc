@@ -4,7 +4,7 @@ set belloff=all
 set ignorecase
 set smartindent autoindent
 set nobackup noundofile noswapfile
-set clipboard+=unnamed,unnamedplus
+set clipboard=unnamedplus
 set tabstop=4 shiftwidth=4 expandtab
 set termguicolors
 set laststatus=0
@@ -12,7 +12,6 @@ set autoread
 set background=dark
 set mouse=a
 set wildmenu
-set cursorline
 set splitbelow splitright " Proper splits behavior
 
 " Plugin Manager (vim-plug)
@@ -20,15 +19,15 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
+Plug 'Yggdroot/indentLine'
 Plug 'tomasiser/vim-code-dark'
-Plug 'nordtheme/vim'
 call plug#end()
 
 " Syntax & Colors
 syntax on
-colorscheme codedark
 let g:codedark_modern=1
 let g:codedark_transparent=1
+colorscheme codedark
 
 " Leader Key
 let mapleader=" "
@@ -73,3 +72,6 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " Enable Spellcheck (Toggle)
 nnoremap <F5> :setlocal spell! spelllang=en_us<CR>
+
+" journal entry - Day Date Month, Time
+nnoremap <leader>dt :$put =['', '', strftime('%a %d %b, %I:%M %p'), '--------------------', '']<CR>GzzA

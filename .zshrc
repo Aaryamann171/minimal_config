@@ -1,87 +1,73 @@
-# Disable system beep
-unsetopt BEEP
-
-# Set vim as editor
-export VISUAL=vim
-export EDITOR=vim
-
-# Prompt
-fpath+=($HOME/.zsh/pure)
-autoload -U promptinit; promptinit
-prompt pure
-
-# History management
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt hist_ignore_all_dups
-setopt share_history
-setopt append_history
-setopt hist_reduce_blanks
-setopt hist_expire_dups_first
-setopt hist_find_no_dups
-setopt hist_save_no_dups
-
-# Completion system
-autoload -Uz compinit
-compinit -C
-zstyle :autocomplete:tab: widget-style autosuggest-accept
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' menu select=2
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' verbose true
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-# QOL Aliases
-alias v="vim"
-alias python="python3"
-alias mv="mv -iv"
-alias cp="cp -riv"
-alias mkdir="mkdir -vp"
-alias ls="eza --icons --group-directories-first"
-alias t="tmux attach || tmux new-session"
-alias ta="tmux attach -t"
-alias tn="tmux new-session"
-alias tl="tmux list-sessions"
-alias cat="bat"
-alias downloads="cd ~/Downloads"
-
-# Custom Navigation
-alias lc="cd ~/code/compe/leetcode/misc"
-alias lt="cd ~/code/compe/leetcode/misc"
-alias dsa="cd ~/code/fun/python"
-
-# Git Aliases
-alias g="git"
-alias ga="git add"
-alias gc="git commit -v"
-alias gca="git commit -v --amend"
-alias gcl="git clone"
-alias gd="git diff"
-alias gf="git fetch"
-alias gl="git pull"
-alias gp="git push"
-
-# Misc Aliases
-alias seer="fortune | cowsay | lolcat"
-alias grep="grep -i"
-alias llm="ollama run llama3.2"
-
-# Ctrl + Arrow to skip words
-bindkey "^[[1;5D" backward-word
-bindkey "^[[1;5C" forward-word
-
-# Load Docker & GHCup if available
-[ -f "$HOME/.docker/init-zsh.sh" ] && source "$HOME/.docker/init-zsh.sh"
-[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env"
-
-# Export Paths
-export BAT_THEME="Visual Studio Dark+"
-export GOPATH="$HOME/code/fun/go"
-
-# Speed up loading by precompiling .zshrc
-if [[ ! -f ~/.zshrc.zwc || ~/.zshrc -nt ~/.zshrc.zwc ]]; then
-  zcompile ~/.zshrc
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+source /usr/share/cachyos-zsh-config/cachyos-config.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+eval "$(zoxide init zsh)"
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+alias tmux='tmux -u'
+alias tk='pkill -f tmux'
+alias open='xdg-open 2> /dev/null'
+alias ff='fastfetch'
+
+export PATH="$PATH:/home/oreo/scripts"
+
+alias ls='eza --icons=always'
+alias update='yay -Syu'
+
+# Get fastest mirrors
+alias mirror="sudo cachyos-rate-mirrors"
+
+alias cat='bat'
+
+export BAT_THEME="Visual Studio Dark+"
+
+# tmux shorthands
+alias ta="tmux attach -t"
+alias tn="tmux new -s"
+alias tl="tmux ls"
+alias tks="tmux kill-server"
+
+# Git - The "Lazy" but effective set
+alias g="git"
+alias gpl="git pull"
+alias gs="git status"
+alias ga="git add ."
+alias gc="git commit -m"
+alias gp="git push"
+alias gl="git log --oneline --graph --decorate"
+
+# Create a dir and move into it immediately
+mkd() { mkdir -p "$1" && cd "$1"; }
+
+alias rm="rm -v"
+alias cp="cp -v"
+alias mv="mv -v"
+
+# Search history instantly
+alias hg="history | grep"
+
+# IP addresses
+alias myip="curl ifconfig.me"
+alias localip="ip route get 1.2.3.4 | awk '{print \$7}'"
+
+export COLORTERM=truecolor
+
+# Create and move into directory
+mkd() {
+    mkdir -p "$1"
+    cd "$1"
+}
+
+alias squarify='f() { magick "$1" -gravity center -background white -extent 1:1 "${1%.*}_square.${1##*.}"; }; f'
+
